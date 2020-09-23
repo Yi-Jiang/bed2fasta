@@ -5,9 +5,9 @@ def usage():
     print("output format: FASTA")
     print("usage: python %s -option <argument>" %sys.argv[0])
     print("     -i     <STRING>    a string like \"chrN:start-end\" or a BED file")
-    print("     -r     <STRING>    reference FASTA file")
+    print("     -r     <STRING>    reference genome in FASTA format")
     print("     --upper            convert all bases to uppercase")
-    print("     --mark             mark position for each line")
+    print("     --mark             mark position at the end of each line")
     print("     -h/--help                      ")
 
 if len(sys.argv) < 2:
