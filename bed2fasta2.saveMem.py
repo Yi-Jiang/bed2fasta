@@ -5,8 +5,8 @@ def usage():
     print("output format: BED")
     print("usage: python %s -option <argument>" %sys.argv[0])
     print("     -i     <STRING>    a string like \"chrN:start-end\" or a BED file")
+    print("     -r     <STRING>    reference genome in FASTA format.")
     print("     --upper            convert all bases to uppercase")
-    print("     -r     <STRING>    reference genome. [/zs32/data-analysis/reflib/genomes/human_UCSC_hg19/chrAll.fasta]")
     print("     -h/--help                     ")
 
 if len(sys.argv) < 2:
