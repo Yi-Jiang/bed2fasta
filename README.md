@@ -2,7 +2,7 @@
 Convert bed files or genomic positions to sequences.
 
 ## Output file: FASTA
-```bash
+```
 python3 bed2fasta.saveMem.py
 output format: FASTA
 usage: python bed2fasta.saveMem.py -option <argument>
@@ -14,7 +14,7 @@ usage: python bed2fasta.saveMem.py -option <argument>
 ```
 
 ## Output file: BED
-```bash
+```
 python3 bed2fasta2.saveMem.py
 output format: BED
 usage: python bed2fasta2.saveMem.py -option <argument>
