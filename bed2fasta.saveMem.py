@@ -51,16 +51,19 @@ for line in refIndex:
     length_chr[line_s[0]] = int(line_s[1])
 refIndex.close()
 
+refFile.seek(indexDict[line_s[0]])
+lineWidth = len(refFile.readline())
+
 def bed2fasta(chr,start,end):
     if end>length_chr[chr]:
         sys.stderr.write("Warn: Window out of range on %s:%s-%s!\n"%(chr,start,end))
         return "-"
         
-    index = start+int((start-1)/50)+indexDict[chr]-1
+    index = start+int((start-1)/lineWidth)+indexDict[chr]-1
     refFile.seek(index)
     
     seq = ""
-    for i in range(int((end-start)/50)+2):
+    for i in range(int((end-start)/lineWidth)+2):
         seq += refFile.readline().rstrip("\n")
     
     mySeq = seq[:end-start+1]
@@ -82,18 +85,18 @@ if re.search(r'\w+:\d+',input):
     if toUpper==1:
         myseq = myseq.upper()
     length = len(myseq)
-    lines = math.ceil(length/50)
+    lines = math.ceil(length/lineWidth)
     print(">",ch,":",st,"-",en,sep="")
     if mark==0:
         for i in range(lines-1):
-            print(myseq[i*50:(i+1)*50])
-        print(myseq[(lines-1)*50:])
+            print(myseq[i*lineWidth:(i+1)*lineWidth])
+        print(myseq[(lines-1)*lineWidth:])
     else:
         start0 = st
         for i in range(lines-1):
-            print(myseq[i*50:(i+1)*50], "[%s:%s-%s]"%(ch,start0,start0+49))
-            start0 = start0 + 50
-        print(myseq[(lines-1)*50:], "[%s:%s-%s]"%(ch,start0,en))
+            print(myseq[i*lineWidth:(i+1)*lineWidth], "[%s:%s-%s]"%(ch,start0,start0+49))
+            start0 = start0 + lineWidth
+        print(myseq[(lines-1)*lineWidth:], "[%s:%s-%s]"%(ch,start0,en))
 else:
     try:
         f = open(input,"r")
@@ -115,19 +118,19 @@ else:
         if toUpper==1:
             myseq = myseq.upper()
         length = len(myseq)
-        lines = math.ceil(length/50)
+        lines = math.ceil(length/lineWidth)
         #print(">",ch,":",st,"-",en,sep="")
         print(">%s"%line)
         if mark==0:
             for i in range(lines-1):
-                print(myseq[i*50:(i+1)*50])
-            print(myseq[(lines-1)*50:])
+                print(myseq[i*lineWidth:(i+1)*lineWidth])
+            print(myseq[(lines-1)*lineWidth:])
         else:
             start0 = st
             for i in range(lines-1):
-                print(myseq[i*50:(i+1)*50], "[%s:%s-%s]"%(ch,start0,start0+49))
-                start0 = start0 + 50
-            print(myseq[(lines-1)*50:], "[%s:%s-%s]"%(ch,start0,en))
+                print(myseq[i*5lineWidth0:(i+1)*lineWidth], "[%s:%s-%s]"%(ch,start0,start0+49))
+                start0 = start0 + lineWidth
+            print(myseq[(lines-1)*lineWidth:], "[%s:%s-%s]"%(ch,start0,en))
             
 refFile.close()
 
