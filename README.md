@@ -14,7 +14,7 @@ Usage: python3 bed2fasta -option <argument>
 
 ---
 
-* `t`: transform matrix
+* `t`: transpose a matrix
 ```
 Language: AWK
 ```
