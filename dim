@@ -1,0 +1,13 @@
+#!/usr/bin/awk -f
+BEGIN{FS="\t";n=0;minC=10E100;maxC=0}
+$1!~/^#/{
+	n++
+	if(minC>NF){minC=NF}
+	if(maxC<NF){maxC=NF}
+}
+END{
+	print "No# nrow: "n
+	print "Min ncol: "minC
+	print "Max ncol: "maxC
+}
+

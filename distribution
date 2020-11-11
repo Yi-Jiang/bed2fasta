@@ -1,0 +1,15 @@
+if [ -z $1 ]; then
+    echo "Error: Step must be set!"
+    exit
+fi
+
+awk '
+    BEGIN{bin='$1';OFS="\t"}
+    {
+        start=$0-$0%bin
+        a[start]++
+    }
+    END{
+        for(i in a){print i,i+bin,a[i] | "sort -k1,1g"}
+    }
+'
