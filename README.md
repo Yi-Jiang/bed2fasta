@@ -26,6 +26,8 @@ Language: AWK
 Language: AWK
 ```
 
+---
+
 * `echohead`: print the header of a table
 ```
 Language: AWK
@@ -43,7 +45,7 @@ Usage: cat infile | distribution stepLength
 
 * `tonote`: write commands in history to note
 ```
-Language: bash
+Language: shell
 Usage: tonote      # write the last command
        tonote -3   # write the 3rd last command
 ```
