@@ -1,7 +1,8 @@
-# Convert bed files or genomic positions to sequences
+# Utilities
 ```
-python3 bed2fasta.saveMem.py
-usage: python bed2fasta.saveMem.py -option <argument>
+**Convert bed files or genomic positions to sequences**
+bed2fasta
+usage: python3 bed2fasta -option <argument>
      -i     <STRING>    a string like "chrN:start-end" or a BED file
      -r     <STRING>    can be "hg19", "hg38", or a path to reference genome [hg38]
      --bed              output BED format [FASTA]
