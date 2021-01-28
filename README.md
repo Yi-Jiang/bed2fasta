@@ -50,3 +50,11 @@ Usage: tonote      # write the last command
        tonote -3   # write the 3rd last command
 ```
 
+---
+
+* `grepcol`: extract columns by header
+```
+Language: shell
+Usage: cat file |grepcol age,sex  # The first row will be used as header
+```
+
