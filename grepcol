@@ -1,0 +1,34 @@
+## Usege:
+##   cat file |grepcol age,sex  # The first row will be used as header
+
+if [ -z $1 ]; then
+    echo "Error: Colname must be set!"
+    exit
+fi
+
+awk '
+    BEGIN{
+        split("'$1'",s,",")
+        for(i in s) cn[s[i]]++
+        FS="\t"; OFS="\t"
+    }
+    NR==1{
+        o=""
+        for(i=1;i<=NF;i++){
+            if($i in cn){
+                ind[i]++
+                o=o"\t"$i
+            }
+        }
+        print substr(o,2)
+    }
+    NR>1{
+        o=""
+        for(i=1;i<=NF;i++){
+            if(i in ind){
+                o=o"\t"$i
+            }
+        }
+        print substr(o,2)
+    }
+'
