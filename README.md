@@ -54,7 +54,7 @@ Usage: tonote      # write the last command
 
 * `grepcol`: extract columns by header
 ```
-Language: shell
+Language: AWK
 Usage: cat file |grepcol age,sex  # The first row will be used as header
 ```
 
