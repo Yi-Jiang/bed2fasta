@@ -9,6 +9,8 @@ Usage: python3 bed2fasta -option <argument>
      --bed              output BED format [FASTA]
      --upper            convert all bases to uppercase
      --mark             mark position at the end of each line
+     --reverse          get reverse sequence
+     --complement       get complement sequence
      -h/--help
 ```
 
