@@ -8,6 +8,8 @@ def usage():
     print("     --bed              output BED format [FASTA]")
     print("     --upper            convert all bases to uppercase")
     print("     --mark             mark position at the end of each line")
+    print("     --reverse          get reverse sequence")
+    print("     --complement       get complement sequence")
     print("     -h/--help                      ")
 
 if len(sys.argv) < 2:
@@ -15,7 +17,7 @@ if len(sys.argv) < 2:
     sys.exit(2)
 
 try:
-    opts, args = getopt.getopt( sys.argv[1:], "i:r:h", ["help", "bed", "upper", "mark", ] )
+    opts, args = getopt.getopt( sys.argv[1:], "i:r:h", ["help", "bed", "upper", "mark", "reverse", "complement"] )
 except getopt.GetoptError:
     print("Get option error!")
     usage()
@@ -24,6 +26,8 @@ except getopt.GetoptError:
 isBed = 0
 toUpper = 0
 mark = 0
+reverse = 0
+complement = 0
 
 for opt, val in opts:
     if opt in ( "-h", "--help" ):
@@ -40,6 +44,10 @@ for opt, val in opts:
             toUpper = 1
         if opt in ( "--mark", ):
             mark = 1
+        if opt in ( "--reverse", ):
+            reverse = 1
+        if opt in ( "--complement", ):
+            complement = {"A": "T", "T": "A", "C": "G", "G": "C", "N": "N", "a": "t", "t": "a", "c": "g", "g": "c"}
 
 if "ref" in dir():
     if ref=="hg19":
@@ -80,6 +88,14 @@ def bed2fasta(chr,start,end):
     
     mySeq = seq[:end-start+1]
     
+    if complement!=0:
+        mySeq_com = []
+        for i in mySeq: mySeq_com.append(complement[i])
+        mySeq = "".join(mySeq_com)
+    
+    if reverse!=0:
+        mySeq = mySeq[::-1]
+    
     return mySeq
 
 def printFASTA(myseq0,ch0,st0,en0):
@@ -93,11 +109,18 @@ def printFASTA(myseq0,ch0,st0,en0):
             print(myseq0[i*lineWidth:(i+1)*lineWidth])
         print(myseq0[(lines-1)*lineWidth:])
     else:
-        start0 = st0
-        for i in range(lines-1):
-            print(myseq0[i*lineWidth:(i+1)*lineWidth], "[%s:%s-%s]"%(ch0,start0,start0+49))
-            start0 = start0 + lineWidth
-        print(myseq0[(lines-1)*lineWidth:], "[%s:%s-%s]"%(ch0,start0,en0))
+        if reverse==0:
+            start0 = st0
+            for i in range(lines-1):
+                print(myseq0[i*lineWidth:(i+1)*lineWidth], "[%s:%s-%s]"%(ch0,start0,start0+lineWidth-1))
+                start0 = start0 + lineWidth
+            print(myseq0[(lines-1)*lineWidth:], "[%s:%s-%s]"%(ch0,start0,en0))
+        else:
+            start0 = en0
+            for i in range(lines-1):
+                print(myseq0[i*lineWidth:(i+1)*lineWidth], "[%s:%s-%s]"%(ch0,start0,start0-(lineWidth-1)))
+                start0 = start0 - lineWidth
+            print(myseq0[(lines-1)*lineWidth:], "[%s:%s-%s]"%(ch0,start0,st0))
 
 def printBED(myseq0,prefix0):
     if toUpper==1:
